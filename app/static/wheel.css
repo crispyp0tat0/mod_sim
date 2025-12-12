@@ -1,0 +1,82 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.roulette-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pointer {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 22px solid #ffcc00; /* pointer color */
+  z-index: 10; /* above the wheel */
+}
+
+.wheel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 16px solid #222;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #fff 70%, #111 100%);
+  transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1); /* smooth deceleration */
+}
+
+.number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  
+  /* center the number on wheel */
+  transform: translate(-50%, -50%) 
+             rotate(calc(360deg / 37 * var(--i)))  /* rotate around wheel */
+             translateY(-220px);                  /* move outward from center */
+             
+  transform-origin: center center;
+}
+
+.number.green { color: #0f0; }
+.number.red   { color: #f00; }
+.number.black { color: #000; }
+
+
+.wheel-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.wheel-center button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #222;
+  color: white;
+  font-weight: bold;
+  border: 3px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px #fff;
+}

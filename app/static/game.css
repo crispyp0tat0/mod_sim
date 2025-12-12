@@ -1,0 +1,125 @@
+.roulette-table {
+    justify-content: center;
+    display: grid;
+    grid: auto / auto;
+}
+
+.chip-selector {
+    margin-bottom: 6px;
+}
+
+.number-grid {
+    display: flex;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.row .straight {
+    height: 62px;
+    width: 40px;
+}
+
+.split {
+    height: auto;
+}
+
+.straight.red {
+    background-color: red;
+    color: white;
+    border: 2px solid #111;
+}
+
+.straight.black {
+    background-color: black;
+    color: white;
+    border: 2px solid #111;
+}
+
+.zero {
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #111;
+    width: 40px;
+    height: 100%;
+    margin-right: 6px;
+}
+
+.row.connector-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 194px;
+    width: 6px;
+}
+
+.column-bets {
+    height: 200px;
+    justify-content: space-between;
+}
+
+.column-bet {
+    background-color: green;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    height: 62px;
+    margin-left: 6px;
+    width: 40px;
+}
+
+.splitv {
+    height: 56px;
+}
+
+.corner {
+    height: 18px;
+}
+
+.line {
+    height: 6px;
+}
+
+.outside-bet {
+    display: flex;
+    flex-direction: column;
+}
+
+.column {
+    margin-left: 46px;
+    margin-top: 6px;
+    height: 40px;
+    width: 546px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dozen {
+    background-color: green;
+    color: white;
+    width: 178px;
+}
+
+.low, .even, .column .red, .column .black, .odd, .high {
+    background-color: green;
+    color: white;
+    width: 86px;
+}
+
+.rotate-text {
+    display: inline-block;
+    transform: rotate(-90deg);
+}
+
+button.active-bet {
+  outline: 2px solid gold;
+  background-color: rgba(255, 215, 0, 0.3);
+}

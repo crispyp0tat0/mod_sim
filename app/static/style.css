@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4; /* lighter background for contrast */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #111;
+    color: white;
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
+.navbar h3 {
+    margin: 0;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li a {
+    color: pink;
+    text-decoration: none;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* Top content split */
+.top-content {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+}
+
+.left, .right {
+    flex: 1;
+    background-color: white;
+    color: #111;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Body footer */
+.body-footer {
+    background-color: #ddd;
+    color: #111;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Global footer */
+.footer {
+    background-color: #111;
+    color: white;
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.footer p {
+    margin: 0;
+}
