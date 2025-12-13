@@ -1,64 +1,34 @@
 {% extends 'base.html' %} {% block title %}European Roulette{% endblock %} {%
 block content %}
-<div class="spin-result">
-  <div class="result-container">
-    <p>Number: <span id="result-number">-</span></p>
+<div class="top-container">
+  <form id="simulation-form">
+    <h3>Simulation Settings</h3>
+    <div class="sim-settings">
+      <label for="sim-runs">Number of spins:</label>
+      <input
+        type="number"
+        id="sim-runs"
+        name="sim-runs"
+        value="10000"
+        min="1"
+      />
+
+      <label for="sim-balance">Starting balance:</label>
+      <input
+        type="number"
+        id="sim-balance"
+        name="sim-balance"
+        value="1000"
+        min="1"
+      />
+    </div>
+    <button type="submit">Run Simulation</button>
+  </form>
+
+  <div id="simulation-results">
+    <h4>Results:</h4>
+    <pre id="sim-output"></pre>
   </div>
-  <div class="result-container">
-    <p>Color: <span id="result-color">-</span></p>
-  </div>
-  <div class="result-container">
-    <p>Winnings: <span id="result-winnings">-</span></p>
-  </div>
-  <div class="result-container">
-    <p>Balance: <span id="result-balance">{{ balance["balance"] }}</span></p>
-  </div>
-  <div class="result-container"><button id="top-up">Top Up</button></div>
-</div>
-<div class="roulette-container">
-  <div class="pointer"></div>
-  <div class="wheel">
-    <!-- Numbers will be placed around the wheel -->
-    <div class="number green" style="--i: 0">0</div>
-    <div class="number red" style="--i: 1">32</div>
-    <div class="number black" style="--i: 2">15</div>
-    <div class="number red" style="--i: 3">19</div>
-    <div class="number black" style="--i: 4">4</div>
-    <div class="number red" style="--i: 5">21</div>
-    <div class="number black" style="--i: 6">2</div>
-    <div class="number red" style="--i: 7">25</div>
-    <div class="number black" style="--i: 8">17</div>
-    <div class="number red" style="--i: 9">34</div>
-    <div class="number black" style="--i: 10">6</div>
-    <div class="number red" style="--i: 11">27</div>
-    <div class="number black" style="--i: 12">13</div>
-    <div class="number red" style="--i: 13">36</div>
-    <div class="number black" style="--i: 14">11</div>
-    <div class="number red" style="--i: 15">30</div>
-    <div class="number black" style="--i: 16">8</div>
-    <div class="number red" style="--i: 17">23</div>
-    <div class="number black" style="--i: 18">10</div>
-    <div class="number red" style="--i: 19">5</div>
-    <div class="number black" style="--i: 20">24</div>
-    <div class="number red" style="--i: 21">16</div>
-    <div class="number black" style="--i: 22">33</div>
-    <div class="number red" style="--i: 23">1</div>
-    <div class="number black" style="--i: 24">20</div>
-    <div class="number red" style="--i: 25">14</div>
-    <div class="number black" style="--i: 26">31</div>
-    <div class="number red" style="--i: 27">9</div>
-    <div class="number black" style="--i: 28">22</div>
-    <div class="number red" style="--i: 29">18</div>
-    <div class="number black" style="--i: 30">29</div>
-    <div class="number red" style="--i: 31">7</div>
-    <div class="number black" style="--i: 32">28</div>
-    <div class="number red" style="--i: 33">12</div>
-    <div class="number black" style="--i: 34">35</div>
-    <div class="number red" style="--i: 35">3</div>
-    <div class="number black" style="--i: 36">26</div>
-    <!-- Continue for all 37 numbers -->
-  </div>
-  <div class="wheel-center"><button id="spin-button">Spin</button></div>
 </div>
 
 <div class="roulette-table">
@@ -544,13 +514,25 @@ block content %}
 
     <!-- Column bets -->
     <div class="row column-bets">
-      <button class="column-bet rotate-90" data-type="column" data-value="[3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]">
+      <button
+        class="column-bet rotate-90"
+        data-type="column"
+        data-value="[3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]"
+      >
         <span class="rotate-text">2 to 1</span>
       </button>
-      <button class="column-bet rotate-90" data-type="column" data-value="[2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]">
+      <button
+        class="column-bet rotate-90"
+        data-type="column"
+        data-value="[2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35]"
+      >
         <span class="rotate-text">2 to 1</span>
       </button>
-      <button class="column-bet rotate-90" data-type="column" data-value="[1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]">
+      <button
+        class="column-bet rotate-90"
+        data-type="column"
+        data-value="[1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34]"
+      >
         <span class="rotate-text">2 to 1</span>
       </button>
     </div>
@@ -618,7 +600,119 @@ block content %}
   </div>
 </div>
 
+<form id="weights-form">
+  <h3>Set Number Weights (0-36)</h3>
+  <div id="sliders-container">
+    {% for i in range(37) %}
+    <div class="slider-row">
+      <label for="weight-{{ i }}">No. {{ i }}:</label>
+      <input
+        type="number"
+        id="weight-{{ i }}"
+        name="weight-{{ i }}"
+        min="0"
+        value="{{ weights[i] }}"
+      />
+    </div>
+    {% endfor %}
+  </div>
+  <button type="submit">Update Weights</button>
+</form>
+
 <script>
+  const simForm = document.getElementById("simulation-form");
+  const simOutput = document.getElementById("sim-output");
+
+  simForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const runs =
+      parseInt(document.getElementById("sim-runs").value, 10) || 1000;
+    const balance =
+      parseInt(document.getElementById("sim-balance").value, 10) || 1000000;
+
+    // Gather bets from current selection
+    const simBets = bets.map((b) => ({ ...b })); // copy of current bets
+
+    fetch("/simulation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({
+        runs,
+        balance,
+        bets: simBets,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Instead of showing JSON, show the plot image
+        const simOutputDiv = document.getElementById("sim-output");
+        simOutputDiv.innerHTML = ""; // clear previous content
+
+        if (data.plot) {
+          const img = document.createElement("img");
+          img.src = "data:image/png;base64," + data.plot;
+          img.alt = "Winnings Random Walk";
+          img.style.maxWidth = "100%";
+          simOutputDiv.appendChild(img);
+        }
+
+        // Optional: log totals
+        console.log("Total winnings:", data.total_winnings);
+        console.log("Number counts:", data.number_count);
+        console.log("Color counts:", data.color_count);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Error running simulation.");
+      });
+  });
+
+  // Update label as slider moves
+  for (let i = 0; i <= 36; i++) {
+    const slider = document.getElementById(`weight-${i}`);
+    const label = document.getElementById(`weight-value-${i}`);
+
+    slider.addEventListener("input", () => {
+      label.textContent = slider.value;
+    });
+  }
+
+  const weightsForm = document.getElementById("weights-form");
+
+  weightsForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const weights = [];
+    for (let i = 0; i <= 36; i++) {
+      const val =
+        parseInt(document.getElementById(`weight-${i}`).value, 10) || 0;
+      weights.push(val);
+    }
+
+    fetch("/api/update_weights", {
+      // <-- your backend endpoint
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ weights }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          alert("Weights updated successfully!");
+          console.log("Backend weights:", data.weights);
+        } else {
+          alert("Failed to update weights: " + data.message);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Error sending weights to backend.");
+      });
+  });
+
   const bets = [];
 
   document.getElementById("clear-bets").addEventListener("click", () => {
@@ -732,4 +826,129 @@ block content %}
   });
 </script>
 
+<style>
+  /* Container layout */
+  .top-container {
+    display: flex;
+    gap: 20px; /* space between form and results */
+    align-items: flex-start;
+    font-family: sans-serif;
+  }
+
+  /* Form on the left */
+  #simulation-form {
+    flex: 0 0 300px; /* fixed width for the form */
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+
+  #simulation-form h3 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .sim-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .sim-settings label {
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+  .sim-settings input {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #simulation-form button {
+    align-self: flex-start; /* left-justified */
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  #simulation-form button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Results area */
+  #simulation-results {
+    flex: 1;
+    min-height: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+
+  #simulation-results h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  #simulation-results pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Sliders and weights form (keep previous style) */
+  #sliders-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12 per row */
+    gap: 5px;
+  }
+
+  .slider-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slider-row label {
+    font-size: 12px;
+    margin-bottom: 2px;
+    text-align: center;
+  }
+
+  .slider-row input[type="number"] {
+    width: 50px;
+    text-align: center;
+  }
+
+  #weights-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #weights-form button {
+    display: block;
+    margin: 15px auto 0 auto;
+    padding: 8px 16px;
+  }
+</style>
 {% endblock %}

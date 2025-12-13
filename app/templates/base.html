@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='wheel.css')}}">
+    {% block link %}{% endblock %}
 </head>
 <body>
     <!-- Nav -->
     <nav class="navbar">
         <h3>3rd Wheel</h3>
+        <a href="{{ url_for('index') }}">Main Game</a>
+        <a href="{{ url_for('index.simulation') }}">Simulation</a>
         <ul>
             {% if g.user %}
             <li><span>{{ g.user['username'] }}</span>

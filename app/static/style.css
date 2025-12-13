@@ -92,3 +92,13 @@ body {
 .footer p {
     margin: 0;
 }
+
+.spin-result {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.result-container {
+    width: 15%;
+}
